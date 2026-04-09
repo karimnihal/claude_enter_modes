@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, sans-serif; width: 240px; padding: 12px; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    label { display: block; padding: 6px 0; font-size: 13px; cursor: pointer; }
+    input { margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Enter key behavior</h1>
+  <label><input type="radio" name="mode" value="enterToSend">Enter sends (Shift+Enter = newline)</label>
+  <label><input type="radio" name="mode" value="shiftToSend">Shift+Enter sends (Enter = newline)</label>
+  <label><input type="radio" name="mode" value="mouseOnly">Mouse click only (Enter never sends)</label>
+  <script src="popup.js"></script>
+</body>
+</html>
