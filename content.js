@@ -1,4 +1,4 @@
-let mode = "shiftToSend";
+let mode = "ctrlToSend";
 let synthetic = false;
 
 browser.storage.local.get("mode").then((r) => {
@@ -94,20 +94,56 @@ function clickSaveButton() {
 }
 
 document.addEventListener(
+  "contextmenu",
+  (e) => {
+    if (mode !== "ctrlToSend") return;
+    if (!e.ctrlKey) return;
+    const field = getEditableFromEvent(e);
+    if (field) e.preventDefault();
+  },
+  true
+);
+
+document.addEventListener(
   "keydown",
   (e) => {
     if (synthetic) return;
     if (e.key !== "Enter") return;
-    if (e.metaKey || e.altKey || e.ctrlKey) return;
+    if (e.altKey) return;
 
     const field = getEditableFromEvent(e);
     if (!field) return;
 
-    const plain = !e.shiftKey;
+    const actionMod = e.ctrlKey || e.metaKey;
     const shift = e.shiftKey;
+    const plain = !actionMod && !shift;
     const inComposer = isMainComposer(field);
 
     if (mode === "enterToSend") return;
+
+    if (mode === "ctrlToSend") {
+      if (actionMod) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (inComposer) {
+          clickSendButton(field);
+        } else {
+          clickSaveButton();
+        }
+      } else if (plain) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (inComposer) {
+          dispatchShiftEnter(field);
+        } else {
+          document.execCommand("insertLineBreak");
+        }
+      }
+      // Shift+Enter: let through (native newline)
+      return;
+    }
+
+    if (actionMod) return;
 
     if (mode === "shiftToSend") {
       if (plain) {

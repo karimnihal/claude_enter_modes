@@ -4,19 +4,20 @@ A Firefox extension that lets you choose how the **Enter** key behaves on [claud
 
 ## Status / compatibility
 
-- **Last verified working**: **2026-04-09**
+- **Last verified working**: **2026-04-09** (Tested macOS on Firefox Version 149.0.2 (64-bit))
 - **Support**: This is a small personal project and is **not actively maintained**.
 - **Warning**: Claude.ai UI changes or Firefox extension/platform changes may break this extension or change its behavior over time.
 
 ## Modes
 
-| Mode | Enter | Shift+Enter |
-|------|-------|-------------|
-| **Enter sends** | Send message | New line |
-| **Shift+Enter sends** (default) | New line | Send message |
-| **Mouse click only** | New line | New line |
+| Mode | Enter | Shift+Enter | Ctrl/Cmd+Enter |
+|------|-------|-------------|----------------|
+| **Ctrl/Cmd+Enter sends** (default) | New line | New line | Send / Save |
+| **Enter sends** | Send / Save | New line | -- |
+| **Shift+Enter sends** | New line | Send / Save | -- |
+| **Mouse click only** | New line | New line | -- |
 
-All three modes apply to both the main composer and the inline message editor.
+All four modes apply to both the main composer and the inline message editor.
 
 ## Install
 

@@ -1,4 +1,4 @@
-const DEFAULT_MODE = "shiftToSend";
+const DEFAULT_MODE = "ctrlToSend";
 
 async function init() {
   const radios = document.querySelectorAll('input[name="mode"]');
