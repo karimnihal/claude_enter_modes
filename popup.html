@@ -3,17 +3,124 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body { font-family: system-ui, sans-serif; width: 240px; padding: 12px; }
-    h1 { font-size: 14px; margin: 0 0 10px; }
-    label { display: block; padding: 6px 0; font-size: 13px; cursor: pointer; }
-    input { margin-right: 6px; }
+    :root {
+      color-scheme: light dark;
+      /* Claude palette (best-effort, from your notes) */
+      --crail: #c15f3c;
+      --cloudy: #b1ada1;
+      --pampas: #f4f3ee;
+      --white: #ffffff;
+
+      /* Claude-ish typography (can't bundle Tiempos; prefer if installed) */
+      /* One-font approach (no remote loading; falls back if unavailable) */
+      --font-app: "Lora", "Source Serif 4", "Literata", Georgia, "Times New Roman", Times, ui-serif, serif;
+
+      /* Dark theme tuned to match Claude's warm neutrals */
+      --bg: #111111;
+      --panel: #171615;
+      --text: #f4f3ee;
+      --muted: rgba(244, 243, 238, 0.72);
+      --border: rgba(177, 173, 161, 0.22);
+      --hover: rgba(244, 243, 238, 0.06);
+      --accent: var(--crail);
+      --ring: rgba(193, 95, 60, 0.40);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: var(--white);
+        --panel: var(--pampas);
+        --text: #1b1a18;
+        --muted: rgba(27, 26, 24, 0.66);
+        --border: rgba(177, 173, 161, 0.40);
+        --hover: rgba(27, 26, 24, 0.05);
+        --accent: var(--crail);
+        --ring: rgba(193, 95, 60, 0.25);
+      }
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-app);
+      width: 280px;
+    }
+
+    .wrap {
+      padding: 12px;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 0 10px;
+      letter-spacing: 0.2px;
+      color: var(--text);
+    }
+
+    .group {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 10px;
+      font-size: 12.5px;
+      line-height: 1.25rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    label + label {
+      border-top: 1px solid var(--border);
+    }
+
+    label:hover {
+      background: var(--hover);
+    }
+
+    input[type="radio"] {
+      margin: 2px 0 0;
+      width: 14px;
+      height: 14px;
+      accent-color: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    input[type="radio"]:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--ring);
+      border-radius: 999px;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
-  <h1>Enter key behavior</h1>
-  <label><input type="radio" name="mode" value="enterToSend">Enter sends (Shift+Enter = newline)</label>
-  <label><input type="radio" name="mode" value="shiftToSend">Shift+Enter sends (Enter = newline)</label>
-  <label><input type="radio" name="mode" value="mouseOnly">Mouse click only (Enter never sends)</label>
+  <div class="wrap">
+    <h1>Enter Key Behavior For Claude.ai</h1>
+    <div class="group">
+      <label><input type="radio" name="mode" value="enterToSend"><span>Enter Sends <span class="muted">(Shift+Enter = newline)</span></span></label>
+      <label><input type="radio" name="mode" value="shiftToSend"><span>Shift+Enter Sends <span class="muted">(Enter = newline)</span></span></label>
+      <label><input type="radio" name="mode" value="mouseOnly"><span>Mouse Click To Send Only</span></label>
+    </div>
+    <div class="hint">Applies on <strong>claude.ai</strong>.</div>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
