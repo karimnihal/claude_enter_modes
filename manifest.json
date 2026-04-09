@@ -30,7 +30,10 @@
     },
     "browser_specific_settings": {
       "gecko": {
-        "id": "claude-enter-modes@yourname.example"
+        "id": "claude-enter-modes@yourname.example",
+        "data_collection_permissions": {
+          "required": ["none"]
+        }
       }
     }
   }
